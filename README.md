@@ -3,17 +3,21 @@ These repo include three solutions and u think that each of solution are also mi
 
 We have a simple e-commerce domain which include Order, Stock and Payment service. 
 Stock has a few quantity of different three products for a seed data. 
-Use Cases Of Micro Services: 
- 1- Order Service:
+## Use Cases Of Micro Services: 
+
+### 1- Order Service:
    * Customer place an order which include products in stock
    * Customer can add a new products to order if order status is suspend yet
    * Customer can remove products from order if order status is suspend yet and also stock has enough quantity
- 2- Stock Service:
+ 
+### 2- Stock Service:
    * Change order status to fail and move flow to order service if stock dont have an enough quantity of products in order
    * Decrease quantity of products in stock based on order and move flow to payment service if stock have an enough quantity of products in order  
- 3- Payment Service:
+
+### 3- Payment Service:
    * Move flow to order service if creation of payment dont have any problem.
-   
+
+## Summary
 We use a choreography based saga implimentation between service interactions. All service interactions is made by Kafka Topics. 
 * Order service includes read model and write model apis. Write side is an event sourcing thats why it stores domain events to PostgreSql and when store a domain event to storage, we also use outbox pattern implimentation for sending projection and integration events to Kafka to protect ourselves from interruption of network or Kafka broker down scenarios.
 Our read models are looking for an answers of two questions. 
@@ -23,7 +27,7 @@ We use administration application for both which are Another Redis Desktop Manag
 For Kafka also we use Conduktor for looking our topics and records in specific topic.
 * Integration between services in this system is made by Kafka without directly sending integration or projection events to Kafka, firstly all integration and projection events store to outbox table of related service storage and message relay service listen these tables continuously and responsible for sending these events to Kafka.
 
-Tech Stack:
+## Tech Stack:
 * Redis as Primary Database - StackExchangeRedis
 * Another Redis Desktop Manager
 * MongoDb
