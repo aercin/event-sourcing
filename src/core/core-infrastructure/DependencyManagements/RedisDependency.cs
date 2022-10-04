@@ -7,7 +7,7 @@ namespace core_infrastructure.DependencyManagements
 {
     public static class RedisDependency
     {
-        public static IServiceCollection AddStackExchangeRedisDependency(this IServiceCollection services, Action<Options> options)
+        public static IServiceCollection AddStackExchangeRedisDependency(this IServiceCollection services, Action<Options> options, out string connStr)
         {
             var dependencyOptions = new Options();
             options(dependencyOptions);
@@ -15,6 +15,8 @@ namespace core_infrastructure.DependencyManagements
             var redisConfigOption = ConfigurationOptions.Parse(dependencyOptions.Endpoints);
             redisConfigOption.Password = dependencyOptions.Password;
             redisConfigOption.DefaultDatabase = dependencyOptions.Database;
+
+            connStr = redisConfigOption.ToString();
 
             services.AddSingleton<IConnectionMultiplexer>(x => ConnectionMultiplexer.Connect(redisConfigOption));
             services.AddScoped(typeof(IRedisRepository<>), typeof(RedisRepository<>));

@@ -7,7 +7,7 @@ namespace core_infrastructure.DependencyManagements
 {
     public static class MongoDependency
     {
-        public static IServiceCollection AddMongoDependency(this IServiceCollection services, Action<Options> options)
+        public static IServiceCollection AddMongoDependency(this IServiceCollection services, Action<Options> options, out string connStr)
         {
             var dependencyOptions = new Options();
             options(dependencyOptions);
@@ -21,6 +21,8 @@ namespace core_infrastructure.DependencyManagements
             {
                 mongoDbConnStr = $"mongodb://{dependencyOptions.Host}:{dependencyOptions.Port}";
             }
+
+            connStr = mongoDbConnStr;
 
             services.AddSingleton<IMongoClient>(client => new MongoClient(mongoDbConnStr));
             services.AddScoped(typeof(IMongoRepository<>), typeof(MongoRepository<>));
