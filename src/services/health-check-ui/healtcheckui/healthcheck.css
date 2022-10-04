@@ -1,0 +1,31 @@
+:root {
+	--primaryColor: #444444;
+	--secondaryColor: #444444;
+	--darkColor: #000000;
+	--midDarkColor: #2f313a;
+	--grayColor: #444444;
+	--midGrayColor: #ebebeb;
+	--lightColor: #f6f6f7;
+	--dangerColor: #d26b4e;
+	--warningColor: #ff8f30;
+	--successColor: #3aaa97;
+	--bgMain: var(--lightColor);
+	--bgSecondary: #ffffff;
+	--fcNegative: #ffffff;
+	--fcBase: var(--grayColor);
+	--bgAside: var(--midDarkColor);
+	--bgMenuActive: var(--darkColor);
+	--bcMenuActive: var(--primaryColor);
+	--bcInput: var(--midGrayColor);
+	--bcInputHover: var(--primaryColor);
+	--bgInputHover: var(--primaryColor);
+	--fcInputHover: var(--primaryColor);
+	--bcTable: var(--midGrayColor);
+	--bgTable: var(--bgSecondary);
+	--bgTableSecondary: var(--midGrayColor);
+	--bgTableButton: var(--bgSecondary);
+	--bgButton: var(--secondaryColor);
+	--bgImageDarken: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2));
+	--bgImageLigthen: linear-gradient(rgba(255, 255, 255, 0.8),rgba(255, 255, 255, 0.8));
+	--logoImageUrl: url('https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/.NET_Foundation_Logo.svg/1200px-.NET_Foundation_Logo.svg.png');
+}
