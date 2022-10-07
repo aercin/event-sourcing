@@ -42,3 +42,4 @@ For Kafka also we use Conduktor for looking our topics and records in specific t
 * MediatR for cqrs 
 * Automapper for domain object to application object mappings
 * Docker Compose for all side dependencies of system 
+* .Net Built-in HealthChecks
