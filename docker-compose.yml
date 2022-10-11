@@ -3,7 +3,7 @@ version: '3.4'
 services:
  mongo:
     image: mongo
-    container_name: 'mongo'
+    container_name: mongo
     restart: always
     environment:
         MONGO_INITDB_ROOT_USERNAME: root
@@ -13,7 +13,7 @@ services:
 
  mongo-express:
     image: mongo-express
-    container_name: 'mongo-express'
+    container_name: mongo-express
     restart: always
     ports:
         - 8081:8081
@@ -62,9 +62,16 @@ services:
 
  redis:
     image: redis:6.2
-    container_name: 'redis'
+    container_name: redis
     ports:
       - 5002:6379
-
+ 
+ consul:
+    image: consul
+    command: consul agent -dev -log-level=warn -ui -client=0.0.0.0
+    hostname: consul
+    container_name: consul
+    ports:
+      - 8500:8500
 volumes:
  db_volume:

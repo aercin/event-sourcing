@@ -15,20 +15,20 @@ namespace core_infrastructure
             services.AddScoped<ISystemClock, SystemClock>();
             services.AddScoped<IEventKeeper, EventKeeper<T>>();
             services.AddScoped<IOutboxMessageRepository, OutboxMessageRepository<T>>();
-            
+
             services.AddOptions<DependencyOptions>().Configure(options);
 
             var dependencyOptions = services.BuildServiceProvider().GetService<IOptions<DependencyOptions>>();
 
             AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
             services.AddDbContext<T>(options => options.UseNpgsql(dependencyOptions.Value.ConnectionString));
-             
+
             return services;
         }
 
         public sealed class DependencyOptions
         {
-            public string ConnectionString { get; set; }
+            public string ConnectionString { get; set; } 
         }
     }
 }

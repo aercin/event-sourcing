@@ -3,7 +3,6 @@ using application;
 using core_infrastructure.DependencyManagements;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
-using StackExchange.Redis;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,8 +34,12 @@ builder.Services.AddMongoDependency(options =>
     options.DatabaseName = builder.Configuration.GetValue<string>("Mongo:DatabaseName");
     options.CollectionName = builder.Configuration.GetValue<string>("Mongo:CollectionName");
 }, out string mongoConnStr);
+
+builder.Services.AddConsulDependency(builder.Configuration);
+
 builder.Services.AddHostedService<ProjectionWorker>();
 
+var consulUri = new Uri(builder.Configuration.GetValue<string>("Consul:Address"));
 builder.Services.AddHealthChecks()
                 .AddRedis(redisConnStr, name: "redis")
                 .AddMongoDb(mongoConnStr, name: "mongo")
@@ -44,7 +47,12 @@ builder.Services.AddHealthChecks()
                 {
                     setup.BootstrapServers = builder.Configuration.GetValue<string>("Kafka:BootstrapServers");
                     setup.MessageTimeoutMs = 5000;
-                }, name: "kafka");
+                }, name: "kafka")
+                .AddConsul(setup =>
+                {
+                    setup.HostName = consulUri.Host;
+                    setup.Port = consulUri.Port;
+                });
 
 var app = builder.Build();
 

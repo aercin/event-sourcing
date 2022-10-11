@@ -1,0 +1,52 @@
+{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/order/{everything}",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/api/order/{everything}",
+      "UpstreamHttpMethod": [ "Post" ],
+      "ServiceName": "order-write-side",
+      "LoadBalancerOptions": {
+        "Type": "LeastConnection"
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/report/{everything}",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/api/report/{everything}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "ServiceName": "order-read-side",
+      "LoadBalancerOptions": {
+        "Type": "LeastConnection"
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/payment/{everything}",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/api/payment/{everything}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "ServiceName": "payment",
+      "LoadBalancerOptions": {
+        "Type": "LeastConnection"
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/stock/{everything}",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/api/stock/{everything}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "ServiceName": "stock",
+      "LoadBalancerOptions": {
+        "Type": "LeastConnection"
+      }
+    }
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "http://localhost:5163",
+    "ServiceDiscoveryProvider": {
+      "Host": "localhost",
+      "Port": 8500,
+      "Type": "Consul"
+    }
+  }
+}

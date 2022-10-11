@@ -29,6 +29,8 @@ namespace infrastructure
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddSingleton<IDomainEventToMessageMapper, DomainEventToMessageMapper>();
 
+            services.AddConsulDependency(config);
+
             return services;
         }
     }

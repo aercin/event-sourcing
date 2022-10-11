@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class PaymentController : ControllerBase
     {
@@ -13,6 +13,7 @@ namespace api.Controllers
             this._mediator = mediator;
         }
 
+        [Route("All")]
         [HttpGet]
         public async Task<IActionResult> GetOrderPayments()
         {
