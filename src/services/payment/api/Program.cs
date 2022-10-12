@@ -15,13 +15,19 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddHostedService<ConsumerWorker>();
+var consulUri = new Uri(builder.Configuration.GetValue<string>("Consul:Address"));
 builder.Services.AddHealthChecks()
                  .AddNpgSql(builder.Configuration.GetConnectionString("PaymentDb"), name: "postgre")
                  .AddKafka(setup =>
                  {
                      setup.BootstrapServers = builder.Configuration.GetValue<string>("Kafka:BootstrapServers");
                      setup.MessageTimeoutMs = 5000;
-                 }, name: "kafka");
+                 }, name: "kafka")
+                 .AddConsul(setup =>
+                 {
+                    setup.HostName = consulUri.Host;
+                    setup.Port = consulUri.Port;
+                 });
 
 var app = builder.Build();
 

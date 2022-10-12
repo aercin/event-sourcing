@@ -15,7 +15,7 @@ namespace api.Controllers
             this._mediator = mediator;
         }
 
-        [HttpPost("/Order")]
+        [HttpPost("PlaceOrder")]
         public async Task<IActionResult> PlaceOrder(PlaceOrderRequest request)
         {
             return Ok(await this._mediator.Send(new PlaceOrder.Command

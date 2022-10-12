@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class StockController : ControllerBase
     {
@@ -13,7 +13,7 @@ namespace api.Controllers
             this._mediator = mediator;
         }
         
-        [HttpGet("Stocks")]
+        [HttpGet("All")]
         public async Task<IActionResult> GetStocks()
         {
             return Ok(await this._mediator.Send(new application.GetStocks.Query()));

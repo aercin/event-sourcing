@@ -30,7 +30,9 @@ namespace infrastructure
             services.AddCoreInfrastructure<OrderDbContext>(options =>
             {
                 options.ConnectionString = config.GetConnectionString("OrderDb");
-            }); 
+            });
+
+            services.AddConsulDependency(config);
 
             return services;
         }
